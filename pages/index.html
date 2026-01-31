@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pro Image Processor</title>
+    <style>
+        body { font-family: sans-serif; max-width: 500px; margin: 50px auto; line-height: 1.6; }
+        .option-group { border: 1px solid #ddd; padding: 15px; border-radius: 8px; margin-bottom: 10px; }
+        #progress-container { width: 100%; background: #eee; display: none; margin: 10px 0; }
+        #progress-bar { width: 0%; height: 10px; background: #2196F3; }
+    </style>
+</head>
+<body>
+    <h2>Pro Image Suite</h2>
+    <form id="pro-form" method="POST" enctype="multipart/form-data">
+        <div class="option-group">
+            <input type="file" name="images" multiple required>
+        </div>
+        
+        <div class="option-group">
+            <label>Width (px): <input type="number" name="width" value="800"></label><br>
+            <label>Quality (1-95): <input type="number" name="quality" value="80"></label>
+        </div>
+
+        <div class="option-group">
+            <strong>Pro Features:</strong><br>
+            <label><input type="checkbox" name="grayscale"> Grayscale Mode</label><br>
+            <label>Format: 
+                <select name="format">
+                    <option value="JPEG">JPEG</option>
+                    <option value="WEBP">WebP (Best Compression)</option>
+                    <option value="PNG">PNG</option>
+                </select>
+            </label><br>
+            <label>Watermark: <input type="text" name="watermark" placeholder="Enter text..."></label>
+        </div>
+
+        <button type="submit" style="width:100%; padding:10px; cursor:pointer;">Process All</button>
+    </form>
+
+    <div id="progress-container"><div id="progress-bar"></div></div>
+
+    <script>
+        document.getElementById('pro-form').onsubmit = function() {
+            document.getElementById('progress-container').style.display = 'block';
+            let bar = document.getElementById('progress-bar');
+            let w = 0;
+            let interval = setInterval(() => {
+                if (w >= 95) clearInterval(interval);
+                else { w += 5; bar.style.width = w + '%'; }
+            }, 100);
+        };
+    </script>
+</body>
+</html>
